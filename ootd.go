@@ -72,14 +72,14 @@ func option() {
 	fmt.Println("10. Outfit Recommendation")
 	fmt.Println("11. Exit")
 	fmt.Println("============================================================================================")
+	fmt.Print("Choose number: ")
 
 }
 
 func addItem(wardrobe *clothing, n *int) {
 	fmt.Print("Item name: ")
 	fmt.Scan(&wardrobe[*n].name)
-	fmt.Print("Categories: ")
-	fmt.Scan(&wardrobe[*n].categories)
+	choooseCategories(wardrobe, n)
 	fmt.Print("Colors: ")
 	fmt.Scan(&wardrobe[*n].colors)
 	fmt.Print("Formality Level (1-3): ")
@@ -87,6 +87,67 @@ func addItem(wardrobe *clothing, n *int) {
 	fmt.Print("Last Worn (YYYY-MM-DD): ")
 	fmt.Scan(&wardrobe[*n].lastWorn)
 	(*n)++
+}
+
+func choooseCategories(wardrobe *clothing, n *int) {
+	var categoriesChoose int
+	var otherCategories string
+	fmt.Println("Categories: ")
+	fmt.Println("1. shirt")
+	fmt.Println("2. trouser")
+	fmt.Println("3. hat")
+	fmt.Println("4. jeans")
+	fmt.Println("5. jacket")
+	fmt.Println("6. sweater")
+	fmt.Println("7. hoodie")
+	fmt.Println("8. coat")
+	fmt.Println("9. t-shirt")
+	fmt.Println("10. short")
+	fmt.Println("11. dresses")
+	fmt.Println("12. skirt")
+	fmt.Println("13. sneaker")
+	fmt.Println("14. sandal")
+	fmt.Println("15. loafer")
+	fmt.Println("16. Other categories")
+	fmt.Print("Choose number: ")
+	fmt.Scan(&categoriesChoose)
+	switch categoriesChoose {
+	case 1:
+		wardrobe[*n].categories = "shirt"
+	case 2:
+		wardrobe[*n].categories = "trouser"
+	case 3:
+		wardrobe[*n].categories = "hat"
+	case 4:
+		wardrobe[*n].categories = "jeans"
+	case 5:
+		wardrobe[*n].categories = "jacket"
+	case 6:
+		wardrobe[*n].categories = "sweater"
+	case 7:
+		wardrobe[*n].categories = "hoodie"
+	case 8:
+		wardrobe[*n].categories = "coat"
+	case 9:
+		wardrobe[*n].categories = "t-shirt"
+	case 10:
+		wardrobe[*n].categories = "short"
+	case 11:
+		wardrobe[*n].categories = "dresses"
+	case 12:
+		wardrobe[*n].categories = "skirt"
+	case 13:
+		wardrobe[*n].categories = "sneaker"
+	case 14:
+		wardrobe[*n].categories = "sandal"
+	case 15:
+		wardrobe[*n].categories = "loafer"
+	case 16:
+		fmt.Print("Enter Categories: ")
+		fmt.Scan(&otherCategories)
+		wardrobe[*n].categories = otherCategories
+	}
+
 }
 
 func modifyItem(wardrobe *clothing, n int) {
@@ -110,8 +171,8 @@ func deleteItem(wardrobe *clothing, n *int) {
 	var delete int
 	fmt.Print("Which number you want to delete ? ")
 	fmt.Scan(&delete)
-	for delete < *n {
-		wardrobe[delete] = wardrobe[delete+1]
+	for delete-1 < *n {
+		wardrobe[delete-1] = wardrobe[delete]
 		delete++
 	}
 	(*n)--
