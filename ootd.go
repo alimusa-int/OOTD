@@ -77,16 +77,20 @@ func option() {
 }
 
 func addItem(wardrobe *clothing, n *int) {
-	fmt.Print("Item name: ")
-	fmt.Scan(&wardrobe[*n].name)
-	choooseCategories(wardrobe, n)
-	fmt.Print("Colors: ")
-	fmt.Scan(&wardrobe[*n].colors)
-	fmt.Print("Formality Level (1-3): ")
-	fmt.Scan(&wardrobe[*n].formality)
-	fmt.Print("Last Worn (YYYY-MM-DD): ")
-	fmt.Scan(&wardrobe[*n].lastWorn)
-	(*n)++
+	if *n < NMAX {
+		fmt.Print("Item name: ")
+		fmt.Scan(&wardrobe[*n].name)
+		choooseCategories(wardrobe, n)
+		fmt.Print("Colors: ")
+		fmt.Scan(&wardrobe[*n].colors)
+		fmt.Print("Formality Level (1-3): ")
+		fmt.Scan(&wardrobe[*n].formality)
+		fmt.Print("Last Worn (YYYY-MM-DD): ")
+		fmt.Scan(&wardrobe[*n].lastWorn)
+		(*n)++
+	} else {
+		fmt.Println("Wardrobe is full.")
+	}
 }
 
 func choooseCategories(wardrobe *clothing, n *int) {
@@ -108,7 +112,7 @@ func choooseCategories(wardrobe *clothing, n *int) {
 	fmt.Println("13. sneaker")
 	fmt.Println("14. sandal")
 	fmt.Println("15. loafer")
-	fmt.Println("16. Other categories")
+	fmt.Println("16. other categories")
 	fmt.Print("Choose number: ")
 	fmt.Scan(&categoriesChoose)
 	switch categoriesChoose {
@@ -154,16 +158,20 @@ func modifyItem(wardrobe *clothing, n int) {
 	var idx int
 	fmt.Print("Enter item number to modify: ")
 	fmt.Scan(&idx)
-	fmt.Print("New Item name: ")
-	fmt.Scan(&wardrobe[idx-1].name)
-	fmt.Print("New Categories: ")
-	fmt.Scan(&wardrobe[idx-1].categories)
-	fmt.Print("New Colors: ")
-	fmt.Scan(&wardrobe[idx-1].colors)
-	fmt.Print("New Formality Level: ")
-	fmt.Scan(&wardrobe[idx-1].formality)
-	fmt.Print("New Last Worn Date: ")
-	fmt.Scan(&wardrobe[idx-1].lastWorn)
+	if idx <= n {
+		fmt.Print("New Item name: ")
+		fmt.Scan(&wardrobe[idx-1].name)
+		fmt.Print("New Categories: ")
+		fmt.Scan(&wardrobe[idx-1].categories)
+		fmt.Print("New Colors: ")
+		fmt.Scan(&wardrobe[idx-1].colors)
+		fmt.Print("New Formality Level: ")
+		fmt.Scan(&wardrobe[idx-1].formality)
+		fmt.Print("New Last Worn Date: ")
+		fmt.Scan(&wardrobe[idx-1].lastWorn)
+	} else {
+		fmt.Println("Item not found")
+	}
 
 }
 
@@ -171,11 +179,15 @@ func deleteItem(wardrobe *clothing, n *int) {
 	var delete int
 	fmt.Print("Which number you want to delete ? ")
 	fmt.Scan(&delete)
-	for delete-1 < *n {
-		wardrobe[delete-1] = wardrobe[delete]
-		delete++
+	if delete <= *n {
+		for delete-1 < *n {
+			wardrobe[delete-1] = wardrobe[delete]
+			delete++
+		}
+		(*n)--
+	} else {
+		fmt.Println("Item not found")
 	}
-	(*n)--
 }
 
 func listItem(wardrobe clothing, n int) {
